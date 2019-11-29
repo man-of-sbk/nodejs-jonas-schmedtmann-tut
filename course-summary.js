@@ -2610,7 +2610,7 @@
 					        // ***** a syntax in js
 					        message: 'discount price is: {VALUE} which should be below regular price'
 					      },
-					      // ============ ANOTHER FORMAT of 'validate' property ============
+					      // ============ OTHER FORMATS of 'validate' property ============
 					      // validate: [function(val) {...}, 'discount price is: {VALUE} which should be below regular price'],
 					      // validate: function(val) {...},
 					    }
@@ -2793,8 +2793,8 @@
 					    process.exit(1);
 						});
 
-10. ...
-
+10. Authentication, Authorization and Security
+	1. Section Intro
 
 
 
