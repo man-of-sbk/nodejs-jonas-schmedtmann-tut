@@ -1,5 +1,5 @@
 -1. NOTICES
-	* we have to run nodejs start cmd in the root folder
+	* if we want to run a js file in a Nodejs project having some effects toward the project dependently => we still have to start it from the root folder, if not, the js file won;t run properly
 
 	* --optionName is a convention of define an option for an npm/node cmd
 
