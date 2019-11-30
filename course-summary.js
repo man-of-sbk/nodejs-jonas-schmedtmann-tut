@@ -3,9 +3,8 @@
 
 	* --optionName is a convention of define an option for an npm/node cmd
 
-	* MongoDB present fields having Date type in form of a String. However, when we do db query like: update, insert,... we still have to pass a Date Object
-		to the fields having Date type => MongoDB helps us convert/compare our Date Object to the value of the fields having Date type under the hood, that;s
-		why we could pass Date Object without any problem
+	* MongoDB present fields having Date type in form of a String. However, when we work with field having Date type we still have to pass a Date Object
+		to the fields having Date type => MongoDB will automatically convert the Date Object to a appropriate data type it need to work with Date fields
 
 	* set process.env in diffirent computer operation
 		1. window
@@ -27,26 +26,26 @@
 		* npm i express
 
 		* npm i morgan
-			=> helps us console.log diffirent important information of a request & response like: HTTP method, response time,...
+			=> helps us console.log important information of a request & response like: HTTP method, response time,... automatically
 
 		* npm i dotenv
-			=> automatically add new Environment variables into process.env object of nodejs defined in a .env file
+			=> automatically add new Environment variables defined in a .env file to process.env Object
 
 		* npm i eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-node eslint-plugin-import
 			eslint-plugin-jsx-ally eslint-plugin-react --save-dev
 			=> linting module
 
 		* npm i mongoose
-			=> a mongodb driver
+			=> a mongodb driver helping us modeling as well as do CRUD, aggregation,... operations easily
 
 		* npm i validator
 			=> validate data
 
 		* npm i ndb
-			=> a nodejs debugger which will connect our application with a 'REAL TIME' Chrome debugger automatically without setting up anything. Thus,
+			=> connect our application to a Chrome debugger automatically without setting up anything. Thus,
 				we could leverage all useful debugging features of Chrome debugger
 
-				+ the debugger is a 'REAL TIME' one meaning that our changes over files in the debugger will reflect to our files in our IDE
+				+ the Chrome Debugger 'ndb' helps us to connect to is a 'REAL TIME' one which reflects changes we make in files inside it to the files in our IDE
 
 	2. new terms
 		* query string
@@ -61,8 +60,8 @@
 				- ducati-panigale-v4
 
 		* backpressure
-			+ reading data from disk via a readble stream is much faster than sending chunks of data via response stream(which is a writable one)
-				over the network => this could cause the response can not send the data nearly as fast as it receives which could overwhelm
+			+ reading data from disk via a readble stream is much faster than sending chunks of data over the network via response stream(a writable one)
+				=> this could cause the response can not send the data nearly as fast as it receives which could overwhelm
 				the response stream
 
 				=> readableStream.pipe(writableStream) automatically handle this problem for us
@@ -80,8 +79,8 @@
 				}
 
 		* mongodb 'query operator'
-			=> since mongodb query using JSON format => it can hardly perform tasks like greater, lesser comparisons, update,...
-				In these cases, we can intergrate 'query operator' with our query
+			=> since mongodb query using JSON format which can;t represent tasks like greater/lesser comparisons, update,...
+				mongodb offers 'query operator' helping us do that with our db query
 
 				+ exp:
 					-  find a document having 'price' field lesser than or equal 500
@@ -124,11 +123,11 @@
 			=> a software allow our application to connect to a db
 
 		* Projection
-			=> to only show a certain fields or remove a certain ones from the result of a query
+			=> to only includes or uninclude a certain fields from the result of a db query
 
 		* alias middleware
-			=> a middleware automatically add 'query string' under the hood to 'req.query' Object in order to create a simple route interface
-				from a combination of a set of 'query strings' to leverage a controller of an another route
+			=> a kind of middleware that add 'query string' implicitly to 'req.query' Object in order to create a simple route interface
+				to leverage controllers of other routes via the implicitly-added 'query string'
 
 	3. vscode plugins
 		* DotENV => prettier .env file (highlight color & file icon)
@@ -181,7 +180,7 @@
 			=> $ process.exit();
 
 		* see all global variables in nodejs RELP:
-			=> tab tab (2 times)
+			=> tab (2 times)
 
 		* _ variable in nodejs RELP
 			=> returns results of a previous calculation inside terminal.
@@ -200,7 +199,7 @@
 				=> return a file content
 
 				- NOTICES
-					* if we don;t specify the second arg which indicates encoding type for the target file, the method will return a Buffer
+					* if we don;t specify the second arg which indicates encoding type for the target file, the method;s result will return a Buffer
 
 			+ .writeFileSync(filePath, fileContent)
 				=> write fileContent to a file
@@ -231,11 +230,11 @@
 
 				- NOTICES:
 					* when there;s a request to our server, the callback function will be called twice since if the request comes from a browser,
-						the browser will automatically perform a request to get our site;s 'favicon'. To see this more explicitly
-						console.log(req.url) to see request;s url in detail
+						the browser will automatically perform a request on it own to get our site;s 'favicon'. To see this more explicitly
+						console.log(req.url) to see it in detail
 
 						+ despite the fact that the callback function is still called when the 'favicon' request is sent, it will eventually
-							ends up not being able to send any response to the client.
+							not be able to send any response to the client. // *** continue
 
 			+ server.listen(port, ipAdress, () => {})
 				- ipAdress: String
