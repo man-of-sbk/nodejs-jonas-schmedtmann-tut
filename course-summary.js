@@ -236,7 +236,7 @@
 						console.log(req.url) to see it in detail
 
 						+ despite the fact that the callback function is still called when the 'favicon' request is sent, it will eventually
-							not be able to send any response to the client. // *** continue
+							not be able to send any response to the client. // *** continue reading
 
 			+ server.listen(port, ipAdress, () => {})
 				- ipAdress: String
@@ -938,7 +938,6 @@
 					...
 
 					=> callback functions passed to above methods are 'middleware' which runs when an expressjs app receives a request
-						(details about middleware is mentioned below in video num // *** continue )
 
 					* exps:
 						1.  // *** below middleware will be executed each time the app receives a request with any HTTP method as well as any url.
@@ -2833,7 +2832,43 @@
 			=> in order to prevent a field from being saved to a document before the document is saved to db, we just simply set the
 				field;s value to undefined 
 
-	5. How Authentication with JWT Works
+	5. How Authentication with JWT Works // *** continue (this part is written wrong & not finished yet)
+		* Jwt ('Json web token')
+			+ working flow:
+				1. a user makes a login request with a email/a usernam & a password
+
+				2. the server check if the user exist and if the password is correct => a unique 'Json web token' for that user is created by
+					using a 'secret' string stored on the server
+
+				3. the server send the jwt back to client which will store it in a cookie || a local storage
+
+				4. each time the user want to access a protected route like: user profile, he/she need to get the jwt in his/her cookie ||
+					local storage & send it to the server
+
+				5. the server check if the jwt is correct. If so => the server sends the appropriate data to the user, else the server sends
+					error telling the user that he/she is not allow to access the route
+
+					=> this step is repeat each time the user want to access a protected route
+
+				- NOTICES
+					* all step above must happen over HTTPs => to prevent anyone from accessing to others; passwords & jwt
+
+			+ parts of a jwt
+				=> jwt is made up of 3 parts:
+					1. 'header'
+						=> request header
+
+					2. 'payload'
+						=> the data we will send to clients the more data the payload contains the bigger the jwt
+
+					3. 'verify signature'
+						=> created by using the 'header', the 'payload' & a 'secret' string(see the 2. step in the 'working flow' section)
+
+			+ jwt verifying steps
+				=>
+					- after the above 3 steps, the server send the 'header' & the 'payload' as well as 'verify signature' is sent to clients
+						=> these 3 parts which is sent to clients is called jwt
+
 
 
 
