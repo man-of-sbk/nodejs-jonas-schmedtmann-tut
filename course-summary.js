@@ -47,6 +47,8 @@
 
 				+ the Chrome Debugger 'ndb' helps us to connect to is a 'REAL TIME' one which reflects changes we make in files inside it to the files in our IDE
 
+		* npm i bcryptjs
+
 	2. new terms
 		* query string
 			+ exp
@@ -2576,6 +2578,12 @@
 
 						=> this of this function returns the current document when we create a new document => it won;t work when we update
 							a document
+							- if we want to implement 'validate' to updating context / scenario, we need to:
+								1. 'find' the document need updating
+
+								2. apply the new property values need updating to the document
+
+								3. call 'save', or 'create' on the document
 
 					2. message: String
 						=> error message
@@ -2677,6 +2685,9 @@
 	
 		* js Error Object
 			+ properties
+				- 'name'
+					=> error type
+
 				- 'message'
 					=> containing is it;s first arg
 
@@ -2793,10 +2804,36 @@
 						});
 
 10. Authentication, Authorization and Security
-	1. Section Intro
+	1. Section Intro / 2. Modelling Users / 3. Creating New Users
+		=> nothing
 
+	4. Managing Passwords
+		* mongooseDocument.isModified(aDocumentFieldName)
+			+ aDocumentFieldName: String (Optional)
 
+			=> if this method receives no arg => it returns true if this document is modified(create or update) or if it receives an arg =>
+				it returns true if a 'field' with a given name(the arg) of this document is modified(create or update), else false.
 
+			+ exp:
+				=> We ONLY want to encrypt the 'password' field of a document when it;s modified(create or update). In case, the user
+					update / create other 'fields' like 'email' or 'name' ones => we don;t want to encrypt the 'password' field one more time
+
+				- mongooseSchema.pre('save', function(next) {
+						// *** if the user update other fields rather than the 'password' field => we don't encrypt the 'password' field
+						// ***** one more time by just running other middlewares right a way
+					  if (!this.isModified('password')) return next();
+					});
+
+		* bcrypt algorithm;s hashing round
+			=> is the hashing cost which determine how extensive the CPU will be used to hash a password. The more extensive
+				the CPU is made use of, the more secure the password will be hashed. In addition, the time it takes to hash a pwd is also
+				slower as well
+
+		* set a document field to undefined
+			=> in order to prevent a field from being saved to a document before the document is saved to db, we just simply set the
+				field;s value to undefined 
+
+	5. How Authentication with JWT Works
 
 
 

@@ -8,8 +8,8 @@
 // ***** and since the server doesn't start on the top of a script :)). Therefore,  we could simply shut down the
 // ***** server right away  using process.exit()
 process.on('uncaughtException', err => {
-  console.log(err.name, err.message);
   console.log('========== UNCAUGHT EXCEPTION !!! shutting down ==========');
+  console.log(err.name, err.message, err.stack);
   process.exit(1);
 });
 
