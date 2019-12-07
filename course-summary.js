@@ -45,9 +45,11 @@
 			=> connect our application to a Chrome debugger automatically without setting up anything. Thus,
 				we could leverage all useful debugging features of Chrome debugger
 
-				+ the Chrome Debugger 'ndb' helps us to connect to is a 'REAL TIME' one which reflects changes we make in files inside it to the files in our IDE
+				+ NOTICES
+					- the Chrome Debugger which 'ndb' helps us to connect to will reflect file-changes we make in it to ones in our IDE
 
 		* npm i bcryptjs
+			=> helps us implement 'bcrypt' algorithm
 
 	2. new terms
 		* query string
@@ -55,15 +57,18 @@
 				- 'https://www.natours.dev/api/v1/tours?duration=5&difficulty=easy'
 					=> '?duration=5&difficulty=easy' is a query string
 
+			+ NOTICES
+				- query strings are distinct from endpoint parameters which are sub urls that are treated as input data
+
 		* slug
-			=> a long phrase whose words are seperated by a special character
+			=> a long phrase whose words are seperated by a special character. The most prevelent character is: -
 
 			+ exp
 				- ducati-panigale-v4
 
 		* backpressure
-			+ reading data from disk via a readble stream is much faster than sending chunks of data over the network via response stream(a writable one)
-				=> this could cause the response can not send the data nearly as fast as it receives which could overwhelm
+			+ reading data from disk via a readble stream is much faster than sending chunks of data over the network via a response stream, a writable one
+				=> this could cause the response can not send the data nearly as fast as it receives data from the read stream which could overwhelm
 				the response stream
 
 				=> readableStream.pipe(writableStream) automatically handle this problem for us
@@ -81,7 +86,7 @@
 				}
 
 		* mongodb 'query operator'
-			=> since mongodb query using JSON format which can;t represent tasks like greater/lesser comparisons, update,...
+			=> since mongodb query using JSON format which can;t represent contexts like greater/lesser comparisons, update,...
 				mongodb offers 'query operator' helping us do that with our db query
 
 				+ exp:
@@ -129,7 +134,7 @@
 
 		* alias middleware
 			=> a kind of middleware that add 'query string' implicitly to 'req.query' Object in order to create a simple route interface
-				to leverage controllers of other routes via the implicitly-added 'query string'
+				which can leverage controllers of other routes via the implicitly-added 'query string'
 
 	3. vscode plugins
 		* DotENV => prettier .env file (highlight color & file icon)
@@ -213,7 +218,7 @@
 
 	6. Blocking and Non-Blocking Asynchronous Nature of Node.js
 		* nodejs runs on one single thread => If one user do a synchronously reading file task taking 2 seconds => not until the
-			synchronously reading task finish, other users can;t do anything
+			synchronously reading task finishes, other users can;t do anything
 
 	7. Reading and Writing Files Asynchronously
 		* fs module
@@ -256,14 +261,6 @@
 						});
 
 	9. Routing
-		* NOTICES:
-			+ when there;s a request to our server, the callback function will be called twice since if the request comes from a browser,
-				the browser will automatically perform a request to get our site;s 'favicon'. To see this more explicitly
-				console.log(req.url) to see request;s url in detail
-
-				- despite the fact that the callback function is still called when the 'favicon' request is sent, it will eventually
-					ends up not being able to send any response to the client.
-
 		* what is header of a response/request ?
 			=> a piece of information about the response/request
 
@@ -291,10 +288,9 @@
 			=> is a global variable which returns the path of the file that we;re currently executing 
 
 		* a case to use readFileSync() method
-			=> when we want to read data that of a file when the server loads for the first time only. Therefore, we don;t need to access the
-				file for each request.
+			=> if we want to read data that of a file when the server loads for the first time only => we don;t need to access the file for each request.
 
-				+ In this case, asynchronously or synchronously read the file for the first time doesn;t matter as we only do that only one time
+				+ In this case, read the file asynchronously or synchronously for the first time doesn;t matter as we only do that only one time
 
 				+ exp:
 					- const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
@@ -308,7 +304,7 @@
 				      break;
 
 	11. HTML Templating Building the Templates
-		=> nothing - just set up a few ui Templates (using our own in-house Template-engine)
+		=> nothing
 
 	12. HTML Templating Filling the Templates
 		=> create our own in-house Template-engine handler
@@ -324,8 +320,8 @@
 			+ .parse(url, parseUrlQueryStrings)
 				- parseUrlQueryStrings: Boolean
 
-				=> parse an url. If the second arg is set to true, the method will parse 'query strings' of the given url to an object as well as
-					the url or else, the method only parse the given url
+				=> parse an url. If the second arg is set to true, the method will parse 'query strings' of a given url to an object as well as
+					the url or, else, the method only parse the given url
 
 	14. Using Modules 2 Our Own Modules
 		* module system
@@ -335,15 +331,15 @@
 				required module.
 
 			+ exports.aVarOrAFunc = ...:
-				=> is a shorthand of: module.exports.aVarOrAFunc = ...; => we;re indeed create a aVarOrAFunc property for the exports
+				=> is a shorthand of: module.exports.aVarOrAFunc = ...; => we;re indeed adding a property named aVarOrAFunc to the exports
 						object which is a property of module object
 
 			+ when we want to make a default exports, we have to write: module.exports = aVarOrAFunc; which is indeed overriding
 				the exports object of module object. It;s obviouly we could not write: exports = aVarOrAFunc; as exports in this context
-				is just a normal variable of a file which has no effects on module system
+				is considered as a undefined variable
 
 	15. Introduction to NPM and the package.json File
-		=> nothing, just introduce to npm
+		=> nothing
 
 	16. Types of Packages and Installs
 		* npm
@@ -375,10 +371,10 @@
 
 				2. add a new property to 'scripts' object whose name will be treatd as a new npm command
 
-				3. specify the command we want as a value of the newly created 'scripts';s property
+				3. specify the command we want as the value of a property of the the 'scripts' Object. The property;s name is the command;s name
 
 				4. run the newly created command by
-					 $ npm newlyCreatedCommandName
+					 $ npm run newlyCreatedCommandName
 
 				- exp:
 					* {
@@ -401,10 +397,10 @@
 						  }
 						}
 
-						$ npm start // *** see start property of the scripts object a bove
+						$ npm run start // *** see start property of the scripts object a bove
 
 	17. Using Modules 3 3rd Party Modules
-		=> introduce to slugify module which helps us transform a phrase into a slug (read about slug in new term section)
+		=> nothing
 
 	18. Package Versioning and Updating
 		* npm update number:
@@ -475,7 +471,7 @@
 	2. An Overview of How the Web Works
 		* what is a DNS (domain name server)
 			=> a domain name is not the real address of a website which is just a nice name that is easy for us to memorize. the DNS which is
-				a special server, a 'phone-books' of the internet will help us convert a domain name to the real ip address of a website.
+				a special server, like a 'phone-books' of the internet will help us convert a domain name to the real ip address of a website.
 				This is done by the website;s internet service provider (ISP)
 
 		* how TCP & IP protocol work
@@ -550,7 +546,6 @@
 			+ completely written in c++
 
 	3. Processes, Threads and the Thread Pool
-
 		* what is a process
 			=> just a program which is in execution
 
@@ -563,7 +558,7 @@
 	4. The Node.js Event Loop
 		* when a nodejs application starts, an event loop will be instantiated which is essentially just a loop whose iterations is called
 			'tick' & the condition keeping this loop running are 'pending' tasks running the background. If there aren;t any 'pending' tasks in
-			the background => the event loop & the program will stop running
+			the background => the event loop will stop running => the program will stop running
 
 		* event loop offloads expensive tasks such as: filesystem, cryptography, compression, DNS tasks,... to 'thread pool' which are
 			multi-threaded to execute.
@@ -581,20 +576,23 @@
 			3. setImmediate:
 				=> setImmediate() callbacks are invoked here
 
-				=> setImmediate() is a special Timer whose callback runs after TImer phase & poll phase, instead of running in Timer phase
+				=> setImmediate() is a special Timer whose callbacks only run after TImer phase & poll phase, instead of running in Timer phase
 
 			4. close:
 				=> some close callbacks are executed here, e.g. socket.on('close', ...)
 
-		* process.nextTick() queue phase & microtask queue (executes resolved callbacks of Promises)
-			=> these are 'exceptions', if there;re callbacks in one of these queue, they;ll be executed right after the current phase which
-				is running instead of waiting for the entire loop to finish. (except for close phase)
+		* process.nextTick() queue phase & microtask queue phase
+			=> the callback functions of these functions will be executed right after the current running phase finishes(except for close phase)
 
-				+ process.nextTick() is used when we really need to do sth right after the current phase
+			+ process.nextTick():
+				=> the callback functions of this function will be executed right after the current running phase finishes(except for close phase)
 
-				+ exp:
-					- a Promise is resolved & returns some data fetched from an api while a callback of a timer event is running => the callback
-						from the fetching process will be executed right after the one from the timer event
+			+ microtask queue phase
+				=> executes resolved callbacks of Promises
+
+			+ exp:
+				- if a Promise is resolved & returns some data fetched from an api while a callback of a timer event is running => the callback
+					from the fetching process will be executed right after the one from the timer event
 
 		* NOTICES:
 			+ avoid blocking the event loop by avoiding following tasks
@@ -602,7 +600,7 @@
 
 				2. don;t perform complex operations such as: loops inside loops
 
-				3. be careful with JSON operations with large object as it could take times to .parse() or .toString() a JSON
+				3. be careful with JSON operations with large object as it could take times to parse or be converted to String/JSON
 
 				4. don;t use too complex regular expression such as: nested qualifiers
 
@@ -613,7 +611,8 @@
 
 	5. The Event Loop in Practice
 		* thread pool size
-			=> thread pool has a default size is 4 which indicates the number of thread the thread pool could leverage the number of functions it could handle at once
+			=> thread pool has a default size is 4 which indicates the number of threads which means the number of functions the thread pool could
+				handle at once
 
 			+ we could set a thread pool size via:
 				- in 'linux'
@@ -677,8 +676,8 @@
 					});
 
 		* events module
-			+ when a set of condition met, an event emitter could emit events which will be picked up by an event listener whose
-				callback functions will be execute when the event listener receives the appropriate event from the event emitter
+			+ when a set of conditions met, an event emitter could emit appropriate events. These events will then be picked up by an event listener which
+				will then execute it;s callback function
 			
 			+ Event-Emitter logic is also called 'Observer pattern' in js programming
 				=> Observer is the event listener which keep observing new notification from an emitter
@@ -719,12 +718,12 @@
 
 	8. Introduction to Streams / 9. Streams in Practice
 		* stream is a approach to read & write data piece by piece. a stream passes Buffers(chunks of data) 'over time' to
-			a target place which brings us the ability to handle small pieces of data from a big data as they come, instead of waiting for
+			a destination which brings us the ability to handle small pieces of data from a big one as they come, instead of waiting for
 			the whole big data to be completely arrived.
 
-			+ Buffer is a temporary storage storing a chunk of data that is being passed from one place to an another one
+			+ Buffer is a temporary storage storing small pieces of a big data that are being passed from one place to an another one
 
-			+ a Buffer has a certain size, when data fill up it;s size, it will be sent to a target place
+			+ a Buffer has a certain size, when pieces of data fill up it;s size, it will be sent to a target place
  	
 			+ a Buffer can vary in size according to the type of data it store.
 
@@ -818,18 +817,12 @@
 				- console.log(require("module").wrapper); // *** logs the wrapper function
 
 5. [Optional] Asynchronous JavaScript Promises and AsyncAwait
-	1. Section Intro
-		=> nothing
-		
-	2. The Problem with Callbacks Callback Hell
-		=> nothing
-
-	3. From Callback Hell to Promises
+	1. Section Intro / 2. The Problem with Callbacks Callback Hell / 3. From Callback Hell to Promises
 		=> nothing
 
 	4. Building Promises
 		* NOTICES:
-			+ only the callback function of 'resolve' & 'reject' methods of a Promise run asynchronously, the callback function of a Promise
+			+ only the callback functions of 'resolve' & 'reject' methods of a Promise run asynchronously, the callback function of a Promise
 				itself runs synchronously
 
 				- exp:
@@ -884,7 +877,7 @@
 							});
 
 
-							console.log("start"); // *** synchronous//
+							console.log("start"); // *** synchronous
 
 		* all operations put after an await run asynchronously as they;re considered to be callback operations of the await
 
@@ -908,13 +901,7 @@
 				- this method will execute it;s 'reject' function if one Promise in the Promise array passed to it 'rejects' 
 
 6. Express Let;s Start Building the Natours API!
-	1. Section Intro
-		=> nothing
-
-	2. What is Express
-		=> nothing
-
-	3. Installing Postman
+	1. Section Intro / 2. What is Express / 3. Installing Postman
 		=> nothing
 
 	4. Setting up Express and Basic Routing
@@ -1015,7 +1002,7 @@
 								}
 
 				4. keep apis stateless
-					=> apis are only in charge of handling 'output' 'coming' from 'clients', 'not' from the 'server'
+					=> gg this
 
 	6. Starting Our API Handling GET Requests
 		* expressjs
@@ -1023,7 +1010,7 @@
 				- .status(statusCode)
 					* statusCode: Number
 					
-					=> return a new 'response' object with a custom status code
+					=> add custom status code
 
 				- .json(aJSONobj)
 					* aJSONobj: Object
@@ -1033,7 +1020,7 @@
 	7. Handling POST Requests
 		* expressjs:
 			+ require('express').json(); // *** a middleware
-				=>  Since, 'request' object of an express app as well as a nodejs app is a 'readable stream' => it;ll be difficult to
+				=>  Since 'request' object of an express app as well as a nodejs app is a 'readable stream' => it;ll be difficult to
 						get a 'request body' out of a request. This middleware helps us get 'request body' of a request. However, it only accept
 						'request body' in JSON format only
 
@@ -1111,7 +1098,8 @@
 	  					// *** => server returns 500 status code => internal error
 
 	  * NOTICES:
-	  	+ we CAN NOT assign the 'request' object to a value. If we do so, nothing gonna happen, all we could do are add & modify a property
+	  	+ we CAN NOT assign the 'request' object to a value. If we do so, nothing gonna happen, all we could do are add & modify properties of
+	  		the request
 
 	  * we could add a customed property to 'request' object in order to make communication between middlewares
 	  	+ exp:
@@ -1128,16 +1116,13 @@
 
 	13. Creating Our Own Middleware
 		* exp:
-			+ this one runs in all middlewareapp.use((req, res, next) => {
-				  console.log('this is my own middleware');
-				  next();
-				});
+			+ this one runs in all middleware
+				- app.use((req, res, next) => {
+					  console.log('this is my own middleware');
+					  next();
+					});
 
-	14. Using 3rd-Party Middleware
-		* morgan module
-			=> helps us console.log diffirent important information of a request & response like: HTTP method, response time,...
-
-	15. Implementing the Users Routes
+	14. Using 3rd-Party Middleware / 15. Implementing the Users Routes
 		=> nothing
 
 	16. Creating and Mounting Multiple Routers
@@ -1199,7 +1184,7 @@
 			+ .param(aTargetEndpointParam, (req, res, next, paramVal) => {});
 				- aTargetEndpointParam: String
 
-				=> is a middleware running whenever, an expressjs app receives a specific-pre-defined parameter from an endpoint
+				=> is a middleware running whenever, an expressjs app receives a specific-pre-defined parameter of an endpoint
 
 				- exp:
 					* const express = require('express');
@@ -1241,12 +1226,12 @@
 
 	20. Serving Static Files
 		* require('express').static(staticFolderPath);
-			=> is a middleware which automatically create routes associated to the folder which is specified via the first arg of
+			=> is a middleware which automatically create routes associated to the file path of the folder which is specified via the first arg of
 				the .static() method. These routes will serve/returns files related to the specified folder
 
 			+ NOTICES:
-				- as being a middleware, if the folder Structure match the api routes Structure & it;s put before api routes => routes created by
-					this middleware will overrider api routes & vice versa
+				- as being a middleware, if the folder Structure match the api endpoint Structure & the folder Structure is put before api routes =>
+					routes created by this middleware will overrider api routes & vice versa
 
 			+ exp:
 				-
@@ -1381,7 +1366,7 @@
 
 			9. tick the install MongoDB compass
 
-		* set up a MongoDB server to the default folder Structure & location of mongodb which will contains mongodb databases
+		* set up a MongoDB server on the default folder Structure & location of mongodb which will contains mongodb databases
 			1. go to 'C:\Program Files\MongoDB\Server\4.2\bin' or 'where we install MongoDB\MongoDB\Server\4.2\bin'
 
 			2. create a folder containing MongoDB databases
@@ -1573,7 +1558,7 @@
 	12. Connecting to Our Hosted Database
 		=> watch this video in order to understand how to set up atlas cluster, connect mongodb compass/terminal with clusters in atlas,...
 
-8. Using MongoDB with Mongoose
+8. Using MongoDB with Mongoose // *** continue reading (this section only, the section 9 below is read)
 	1. Section Intro
 		=> nothing
 
@@ -2629,11 +2614,6 @@
 
 	2. Debugging Node.js with ndb
 		* npm i ndb
-			=> a nodejs debugger which will connect our application with a 'REAL TIME' Chrome debugger automatically without setting up anything. Thus,
-				we could leverage all useful debugging features of Chrome debugger
-
-				+ the debugger is a 'REAL TIME' one meaning that our changes over files in the debugger will reflect to our files in our IDE
-
 			=> for installation, see the video
 
 			+ set breakpoint
@@ -2656,31 +2636,32 @@
 	5. Implementing a Global Error Handling Middleware
 		* expressjs built-in error middlewares
 			+ app.use((err, req, res, next) => {});
-				- err: depends on the data Type of the variable passed into next() function of middlewares
+				- err: this arg;s data type depends on the data Type of the variable passed into next() function of middlewares
 
-			=> by just simply passing a function having 4 arguments, expressjs automatically consider it as an error middleware
+			=> by just simply passing a function having 4 arguments, expressjs automatically consider it to be an error middleware
 
 			=> Whenever a next() function of a middleware is called with an arg => expressjs will SKIP all other middlewares & send the error, the arg of the
 				next() function to error middlewares and execute the error middlewares
 
 			+ exp
-				- app.all('*', (req, res, next) => {
-					  next({
-					    message: `Can't find ${req.originalUrl} on this server`,
-					    status: 'fail',
-					    statusCode: 404
-					  });
-					});
+				- define a Error handling middleware
+					* app.all('*', (req, res, next) => {
+						  next({
+						    message: `Can't find ${req.originalUrl} on this server`,
+						    status: 'fail',
+						    statusCode: 404
+						  });
+						});
 
-					app.use((err, req, res, next) => {
-					  err.statusCode = err.statusCode || 500;
-					  err.status = err.status || 'error';
+						app.use((err, req, res, next) => {
+						  err.statusCode = err.statusCode || 500;
+						  err.status = err.status || 'error';
 
-					  res.status(err.statusCode).json({
-					    status: err.status,
-					    message: err.message
-					  });
-					})
+						  res.status(err.statusCode).json({
+						    status: err.status,
+						    message: err.message
+						  });
+						});
 	
 		* js Error Object
 			+ properties
